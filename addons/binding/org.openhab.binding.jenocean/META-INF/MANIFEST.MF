@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: ., lib/enocean.library-0.9.0.jar
+Bundle-ManifestVersion: 2
+Bundle-Name: JEnOcean Binding
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-SymbolicName: org.openhab.binding.jenocean;singleton:=true
+Bundle-Vendor: openHAB
+Bundle-Version: 2.2.0.qualifier
+Export-Package: 
+ org.openhab.binding.jenocean,
+ org.openhab.binding.jenocean.handler
+Import-Package: 
+ gnu.io;version="3.12.0.OH",
+ org.eclipse.jdt.annotation;resolution:=optional,
+ org.eclipse.smarthome.config.core,
+ org.eclipse.smarthome.core.library.types,
+ org.eclipse.smarthome.core.thing,
+ org.eclipse.smarthome.core.thing.binding,
+ org.eclipse.smarthome.core.thing.binding.builder,
+ org.eclipse.smarthome.core.thing.type,
+ org.eclipse.smarthome.core.types,
+ org.openhab.binding.jenocean,
+ org.openhab.binding.jenocean.handler,
+ org.osgi.service.component;version="1.3.0",
+ org.osgi.service.component.annotations;resolution:=optional,
+ org.slf4j
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: it.polito.elite.enocean.library
