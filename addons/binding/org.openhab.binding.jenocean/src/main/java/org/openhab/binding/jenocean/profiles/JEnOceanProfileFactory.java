@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2010-2017 by the respective copyright holders.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ */
 package org.openhab.binding.jenocean.profiles;
 
 import java.util.Collection;
@@ -21,6 +29,11 @@ import org.eclipse.smarthome.core.thing.profiles.ProfileTypeUID;
 import org.eclipse.smarthome.core.thing.type.ChannelTypeUID;
 import org.osgi.service.component.annotations.Component;
 
+/**
+ * The {@link JEnOceanProfileFactory} is responsible for creating profiles.
+ *
+ * @author Jan Kemmler - Initial contribution
+ */
 @Component(service = ProfileFactory.class)
 public class JEnOceanProfileFactory implements ProfileFactory, ProfileAdvisor, ProfileTypeProvider {
 

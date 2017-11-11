@@ -52,17 +52,17 @@ public class JEnOceanHandlerFactory extends BaseThingHandlerFactory implements E
         try {
             String serialPort = (String) componentContext.getProperties().get("serialPort");
 
-            // if (null != serialPort) {
-            // create the lowest link layer
-            linkLayer = new EnJLink("/dev/ttyUSB0");// serialPort);
+            if (null != serialPort) {
+                // create the lowest link layer
+                linkLayer = new EnJLink(serialPort);
 
-            // create the connection layer
-            connection = new EnJConnection(linkLayer, null, this);
-            if (null != linkLayer) {
-                // connect the link
-                linkLayer.connect();
+                // create the connection layer
+                connection = new EnJConnection(linkLayer, null, this);
+                if (null != linkLayer) {
+                    // connect the link
+                    linkLayer.connect();
+                }
             }
-            // }
         } catch (Exception e) {
             System.err.println("The given port does not exist or no device is plugged in" + e);
         }

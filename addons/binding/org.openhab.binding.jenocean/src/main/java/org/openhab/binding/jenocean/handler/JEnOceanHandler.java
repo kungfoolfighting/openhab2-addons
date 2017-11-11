@@ -126,8 +126,7 @@ public class JEnOceanHandler extends BaseThingHandler implements EEPAttributeCha
 
             // scheduler.scheduleWithFixedDelay(new DimmerIncreaseTask(this.getThing()), 500, 200,
             // TimeUnit.MILLISECONDS);
-            this.logger.debug(
-                    "A0: " + downPressedA + " A1: " + upPressedA + " B0: " + downPressedB + " B1: " + upPressedB);
+            this.logger.debug("A0: {} A1: {} B0: {} B1: {}", downPressedA, upPressedA, downPressedB, upPressedB);
 
         } else if (attribute instanceof EEP26RockerSwitch2RockerButtonCount) {
             if (wasUpPressedA) {
