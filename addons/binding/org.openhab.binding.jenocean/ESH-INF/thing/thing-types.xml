@@ -16,6 +16,10 @@
 			<channel id="channel_b_on_off" typeId="on_off_channel"/>
 			<channel id="channel_a_rocker" typeId="rocker_channel"/>
 			<channel id="channel_b_rocker" typeId="rocker_channel"/>
+			<channel id="channel_a_up_button" typeId="system.rawbutton"/>
+			<channel id="channel_a_down_button" typeId="system.rawbutton"/>
+			<channel id="channel_b_up_button" typeId="system.rawbutton"/>
+			<channel id="channel_b_down_button" typeId="system.rawbutton"/>
 		</channels>
 		
         <config-description-ref uri="thing-type:jenocean:RockerSwitch"/>     

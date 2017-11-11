@@ -30,5 +30,9 @@ public class JEnOceanBindingConstants {
     public static final String CHANNEL_B_ON_OFF = "channel_b_on_off";
     public static final String CHANNEL_A_ROCKER = "channel_a_rocker";
     public static final String CHANNEL_B_ROCKER = "channel_b_rocker";
+    public static final String CHANNEL_A_UP_BUTTON = "channel_a_up_button";
+    public static final String CHANNEL_A_DOWN_BUTTON = "channel_a_down_button";
+    public static final String CHANNEL_B_UP_BUTTON = "channel_b_up_button";
+    public static final String CHANNEL_B_DOWN_BUTTON = "channel_b_down_button";
 
 }

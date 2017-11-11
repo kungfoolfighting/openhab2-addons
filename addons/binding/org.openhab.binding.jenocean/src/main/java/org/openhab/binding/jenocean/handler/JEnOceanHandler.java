@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import it.polito.elite.enocean.enj.eep.EEPAttribute;
 import it.polito.elite.enocean.enj.eep.EEPAttributeChangeListener;
 import it.polito.elite.enocean.enj.eep.eep26.attributes.EEP26RockerSwitch2RockerAction;
+import it.polito.elite.enocean.enj.eep.eep26.attributes.EEP26RockerSwitch2RockerButtonCount;
 
 /**
  * The {@link JEnOceanHandler} is responsible for handling commands, which are
@@ -88,49 +89,66 @@ public class JEnOceanHandler extends BaseThingHandler implements EEPAttributeCha
             boolean downPressedB = action.getButtonValue(EEP26RockerSwitch2RockerAction.BO);
 
             if (upPressedA) {
+                wasDownPressedA = false;
                 if (!wasUpPressedA) {
+                    wasUpPressedA = true;
+                    triggerChannel(CHANNEL_A_UP_BUTTON, "PRESSED");
                     triggerChannel(CHANNEL_A_ROCKER, "UP_PRESSED");
                     updateState(CHANNEL_A_ON_OFF, OnOffType.ON);
                 }
-            } else {
-                if (wasUpPressedA) {
-                    triggerChannel(CHANNEL_A_ROCKER, "UP_RELEASED");
-                }
-
-                if (downPressedA) {
-                    if (!wasDownPressedA) {
-                        triggerChannel(CHANNEL_A_ROCKER, "DOWN_PRESSED");
-                        updateState(CHANNEL_A_ON_OFF, OnOffType.OFF);
-                    }
-                } else if (wasDownPressedA) {
-                    triggerChannel(CHANNEL_A_ROCKER, "DOWN_RELEASED");
+            } else if (downPressedA) {
+                wasUpPressedA = false;
+                if (!wasDownPressedA) {
+                    wasDownPressedA = true;
+                    triggerChannel(CHANNEL_A_DOWN_BUTTON, "PRESSED");
+                    triggerChannel(CHANNEL_A_ROCKER, "DOWN_PRESSED");
+                    updateState(CHANNEL_A_ON_OFF, OnOffType.OFF);
                 }
             }
 
             if (upPressedB) {
+                wasDownPressedB = false;
                 if (!wasUpPressedB) {
+                    wasUpPressedB = true;
+                    triggerChannel(CHANNEL_B_UP_BUTTON, "PRESSED");
                     triggerChannel(CHANNEL_B_ROCKER, "UP_PRESSED");
                     updateState(CHANNEL_B_ON_OFF, OnOffType.ON);
                 }
-            } else {
-                if (wasUpPressedB) {
-                    triggerChannel(CHANNEL_B_ROCKER, "UP_RELEASED");
-                }
-
-                if (downPressedB) {
-                    if (!wasDownPressedB) {
-                        triggerChannel(CHANNEL_B_ROCKER, "DOWN_PRESSED");
-                        updateState(CHANNEL_B_ON_OFF, OnOffType.OFF);
-                    }
-                } else if (wasDownPressedB) {
-                    triggerChannel(CHANNEL_B_ROCKER, "DOWN_RELEASED");
+            } else if (downPressedB) {
+                wasUpPressedB = false;
+                if (!wasDownPressedB) {
+                    wasDownPressedB = true;
+                    triggerChannel(CHANNEL_B_DOWN_BUTTON, "PRESSED");
+                    triggerChannel(CHANNEL_B_ROCKER, "DOWN_PRESSED");
+                    updateState(CHANNEL_B_ON_OFF, OnOffType.OFF);
                 }
             }
 
             // scheduler.scheduleWithFixedDelay(new DimmerIncreaseTask(this.getThing()), 500, 200,
             // TimeUnit.MILLISECONDS);
-            this.logger
-                    .info("A0: " + downPressedA + " A1: " + upPressedA + " B0: " + downPressedB + " B1: " + upPressedB);
+            this.logger.debug(
+                    "A0: " + downPressedA + " A1: " + upPressedA + " B0: " + downPressedB + " B1: " + upPressedB);
+
+        } else if (attribute instanceof EEP26RockerSwitch2RockerButtonCount) {
+            if (wasUpPressedA) {
+                wasUpPressedA = false;
+                triggerChannel(CHANNEL_A_ROCKER, "UP_RELEASED");
+            }
+
+            if (wasDownPressedA) {
+                wasDownPressedA = false;
+                triggerChannel(CHANNEL_A_ROCKER, "DOWN_RELEASED");
+            }
+
+            if (wasUpPressedB) {
+                wasUpPressedB = false;
+                triggerChannel(CHANNEL_B_ROCKER, "UP_RELEASED");
+            }
+
+            if (wasDownPressedB) {
+                wasDownPressedB = false;
+                triggerChannel(CHANNEL_B_ROCKER, "DOWN_RELEASED");
+            }
         }
 
     }

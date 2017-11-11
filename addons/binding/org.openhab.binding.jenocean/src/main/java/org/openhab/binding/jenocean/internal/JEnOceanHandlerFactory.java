@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Component;
 import it.polito.elite.enocean.enj.communication.EnJConnection;
 import it.polito.elite.enocean.enj.communication.EnJDeviceListener;
 import it.polito.elite.enocean.enj.eep.eep26.attributes.EEP26RockerSwitch2RockerAction;
+import it.polito.elite.enocean.enj.eep.eep26.attributes.EEP26RockerSwitch2RockerButtonCount;
 import it.polito.elite.enocean.enj.link.EnJLink;
 import it.polito.elite.enocean.enj.model.EnOceanDevice;
 
@@ -51,17 +52,17 @@ public class JEnOceanHandlerFactory extends BaseThingHandlerFactory implements E
         try {
             String serialPort = (String) componentContext.getProperties().get("serialPort");
 
-            if (null != serialPort) {
-                // create the lowest link layer
-                linkLayer = new EnJLink(serialPort);
+            // if (null != serialPort) {
+            // create the lowest link layer
+            linkLayer = new EnJLink("/dev/ttyUSB0");// serialPort);
 
-                // create the connection layer
-                connection = new EnJConnection(linkLayer, null, this);
-                if (null != linkLayer) {
-                    // connect the link
-                    linkLayer.connect();
-                }
+            // create the connection layer
+            connection = new EnJConnection(linkLayer, null, this);
+            if (null != linkLayer) {
+                // connect the link
+                linkLayer.connect();
             }
+            // }
         } catch (Exception e) {
             System.err.println("The given port does not exist or no device is plugged in" + e);
         }
@@ -81,11 +82,15 @@ public class JEnOceanHandlerFactory extends BaseThingHandlerFactory implements E
             if (null != connection) {
                 String enoceanAddress = (String) thing.getConfiguration().get("enoceanAddress");
                 JEnOceanHandler handler = new JEnOceanHandler(thing);
+
                 connection.addNewDevice(enoceanAddress, "F6-02-02");
                 EnOceanDevice device = connection
                         .getDevice(EnOceanDevice.byteAddressToUID(EnOceanDevice.parseAddress(enoceanAddress)));
                 if (null != device) {
                     device.getEEP().addEEP26AttributeListener(0, EEP26RockerSwitch2RockerAction.NAME, handler);
+                    device.getEEP().addEEP26AttributeListener(0, EEP26RockerSwitch2RockerButtonCount.NAME, handler);
+                } else {
+                    return null;
                 }
                 return handler;
             }
